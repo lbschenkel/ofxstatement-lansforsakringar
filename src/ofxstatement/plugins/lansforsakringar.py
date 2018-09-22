@@ -1,7 +1,7 @@
 import xlrd
 from ofxstatement.parser import StatementParser
 from ofxstatement.plugin import Plugin
-from ofxstatement.statement import Statement, StatementLine
+from ofxstatement.statement import Statement, StatementLine, generate_transaction_id
 
 
 class LansforsakringarPlugin(Plugin):
@@ -43,6 +43,7 @@ class LansforsakringarParser(StatementParser):
         line.memo = row[2].value
         line.amount = row[3].value
         line.trntype = self.get_type(line)
+        line.id = generate_transaction_id(line)
         return line
 
     @staticmethod
