@@ -8,14 +8,18 @@ class LansforsakringarPlugin(Plugin):
     """Länsförsäkringar <https://www.lansforsakringar.se>"""
 
     def get_parser(self, filename):
-        return LansforsakringarParser(filename)
+        bank_id = self.settings.get('bank', 'ELLFSESS')
+        account_id = self.settings.get('account')
+        return LansforsakringarParser(filename, bank_id, account_id)
 
 
 class LansforsakringarParser(StatementParser):
-    statement = Statement(bank_id='Länsförsäkringar', currency='SEK')
+    statement = Statement(currency='SEK')
 
-    def __init__(self, filename):
+    def __init__(self, filename, bank_id, account_id):
         self.filename = filename
+        self.statement.bank_id = bank_id
+        self.statement.account_id = account_id
         self.sheet = None
 
     def parse(self):
