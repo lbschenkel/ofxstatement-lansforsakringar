@@ -21,6 +21,7 @@ class LansforsakringarParser(StatementParser):
         self.statement.bank_id = bank_id
         self.statement.account_id = account_id
         self.sheet = None
+        self.row_num = 0
 
     def parse(self):
         with xlrd.open_workbook(self.filename) as book:
@@ -34,9 +35,11 @@ class LansforsakringarParser(StatementParser):
         return rows
 
     def parse_record(self, row):
+        self.row_num += 1
         line = StatementLine()
         line.date = self.parse_datetime(row[0].value)
         line.date_user = self.parse_datetime(row[1].value)
+        line.refnum = str(self.row_num)
         line.memo = row[2].value
         line.amount = row[3].value
         line.trntype = self.get_type(line)
