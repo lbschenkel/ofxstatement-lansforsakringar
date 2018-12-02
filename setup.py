@@ -6,7 +6,7 @@ from setuptools import find_packages
 
 version = "0.2.0"
 
-with open('README.rst') as f:
+with open('README.rst', mode='r', encoding='uft-8') as f:
     long_description = f.read()
 
 setup(name='ofxstatement-lansforsakringar',
