@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-from distutils.core import setup
-
 from setuptools import find_packages
+
+from distutils.core import setup
 
 version = "0.2.0"
 
